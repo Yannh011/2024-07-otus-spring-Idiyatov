@@ -8,13 +8,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.hw.domain.Student;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class StudentServiceImplTest {
 
     @Mock
-    private IOService ioService;
+    private LocalizedIOService ioService;
 
     @InjectMocks
     private StudentServiceImpl studentService;
@@ -23,8 +24,8 @@ class StudentServiceImplTest {
     void determineCurrentStudent_ReturnsCorrectStudent() {
         String firstName = "John";
         String lastName = "Doe";
-        when(ioService.readStringWithPrompt("Please input your first name")).thenReturn(firstName);
-        when(ioService.readStringWithPrompt("Please input your last name")).thenReturn(lastName);
+
+        when(ioService.readStringWithPromptLocalized(anyString())).thenReturn(firstName).thenReturn(lastName);
 
         Student student = studentService.determineCurrentStudent();
 
